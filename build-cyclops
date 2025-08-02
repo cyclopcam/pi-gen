@@ -1,0 +1,27 @@
+#!/bin/bash
+
+config=$(cat <<EOF
+IMG_NAME=cyclops
+PI_GEN_RELEASE=v1
+ENABLE_SSH=1
+TIMEZONE_DEFAULT=Africa/Johannesburg
+KEYBOARD_LAYOUT=English (US)
+COMPRESSION_LEVEL=3
+DEPLOY_COMPRESSION=gz
+EOF
+)
+
+echo "$config" > config
+touch ./stage3/SKIP ./stage4/SKIP ./stage5/SKIP
+touch ./stage4/SKIP_IMAGES ./stage5/SKIP_IMAGES
+
+echo "Now either do:"
+echo "sudo ./build.sh"
+echo "or"
+echo "./build-docker.sh"
+
+echo "For iteration (see readme 'Skipping stages to speed up development'):"
+echo "PRESERVE_CONTAINER=1 CONTINUE=1 CLEAN=1 ./build-docker.sh"
+
+# To delete a stage from the docker container:
+# sudo docker run --privileged --volumes-from=pigen_work pi-gen rm -rf pi-gen/work/cyclops/stage2
