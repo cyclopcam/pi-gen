@@ -22,5 +22,5 @@ echo "./build-docker.sh"
 echo "For iteration (see readme 'Skipping stages to speed up development'):"
 echo "PRESERVE_CONTAINER=1 CONTINUE=1 CLEAN=1 ./build-docker.sh"
 
-# To delete a stage from the docker container:
-# sudo docker run --privileged --volumes-from=pigen_work pi-gen rm -rf pi-gen/work/cyclops/stage2
+# To delete stage3 from the docker container:
+# sudo docker run --privileged --volumes-from=pigen_work pi-gen rm -rf pi-gen/work/cyclops/stage3
