@@ -14,13 +14,18 @@ EOF
 echo "$config" > config
 touch ./stage2/SKIP_IMAGES
 
-echo "Now either do:"
-echo "sudo ./build.sh"
-echo "or"
+echo "Now do:"
 echo "./build-docker.sh"
 
 echo "For iteration (see readme 'Skipping stages to speed up development'):"
 echo "PRESERVE_CONTAINER=1 CONTINUE=1 CLEAN=1 ./build-docker.sh"
 
-# To delete stage3 from the docker container:
-# sudo docker run --privileged --volumes-from=pigen_work pi-gen rm -rf pi-gen/work/cyclops/stage3
+echo "To skip stage0, 'touch ./stage0/SKIP', and etc for the other stages."
+echo "We try to keep our custom stuff in stage 3, so that you can just iterate on stage 3,"
+echo "without having to go through the previous build steps for every iteration."
+echo "So a typical build/iteration workflow involves a full build, and thereafter"
+echo "skipping stages 0, 1, and 2."
+echo "Example: touch ./stage0/SKIP ./stage1/SKIP ./stage2/SKIP"
+
+echo "To delete stage3 from the docker container:"
+echo "sudo docker run --privileged --volumes-from=pigen_work pi-gen rm -rf pi-gen/work/cyclops/stage3"
