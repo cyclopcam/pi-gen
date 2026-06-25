@@ -12,6 +12,11 @@ EOF2
 )
 
 echo "$config" > config
+
+# Ensure a full baseline build can run even if prior iteration left SKIP markers.
+# -- Was this comment left by an AI? I can't remember why I would have added it.
+#rm -f ./stage0/SKIP ./stage1/SKIP ./stage2/SKIP
+
 touch ./stage2/SKIP_IMAGES
 
 echo "Now do:"
