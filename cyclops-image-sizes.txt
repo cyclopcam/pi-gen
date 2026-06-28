@@ -1,0 +1,20 @@
+Bookworm builds
+-rw-r--r--  1 ben ben 741M Aug  3  2025 image_2025-08-03-cyclops-lite.img.gz
+-rw-r--r--  1 ben ben 742M Aug  4  2025 image_2025-08-04-cyclops-lite.img.gz
+-rw-r--r--  1 ben ben 750M Oct 22  2025 image_2025-10-22-cyclops-lite.img.gz
+-rw-r--r--  1 ben ben 865M Feb 25 12:27 image_2026-02-25-cyclops-lite.img.gz
+
+Initial trixie build:
+-rw-r--r--  1 ben ben 940M Jun 26 07:41 image_2026-06-26-cyclops-lite.img.gz
+
+Add --no-install-recommends when installing the cyclops debian package
+-rw-r--r--  1 ben ben 860M Jun 26 08:19 image_2026-06-26-cyclops-lite.img.gz
+ 
+Addition of export-image/05-cyclops-prune, which removes compilers
+-rw-r--r--  1 ben ben 706M Jun 26 08:34 image_2026-06-26-cyclops-lite.img.gz
+
+The combined result of the above changes (--no-install-recommends and 05-cyclops-prune):
+	raspios.img: 3045064704 (old)
+	raspios.img: 3078619136 (new)
+	That's strange! Why is the extracted image larger, even though the .gz is smaller!
+	Oh, it's because the image file is just raw blocks - so there's no signal there.

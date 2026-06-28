@@ -28,8 +28,6 @@ fi
 
 
 on_chroot <<- EOF
-	systemctl enable rpi-resize
-
 	for GRP in input spi i2c gpio; do
 		groupadd -f -r "\$GRP"
 	done
