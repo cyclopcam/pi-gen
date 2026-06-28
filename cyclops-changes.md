@@ -29,6 +29,7 @@ The intended image:
 
 - is named `cyclops`
 - enables SSH
+- disables cloud-init provisioning
 - uses timezone `Africa/Johannesburg`
 - uses keyboard layout `English (US)`
 - is exported as a gzip-compressed `-lite` image
@@ -49,6 +50,7 @@ config=$(cat <<EOF
 IMG_NAME=cyclops
 PI_GEN_RELEASE=v1
 ENABLE_SSH=1
+ENABLE_CLOUD_INIT=0
 TIMEZONE_DEFAULT=Africa/Johannesburg
 KEYBOARD_LAYOUT=English (US)
 COMPRESSION_LEVEL=3
@@ -273,13 +275,16 @@ rpi-keyboard-fw-update
 rpi-usb-gadget modemmanager-
 rpi-connect-lite
 rpifwcrypto
-cloud-init
-rpi-cloud-init-mods
 ```
 
-Cloud-init is new in this trixie base and remains enabled. If Cyclops should not
-ship cloud-init, make that an explicit product decision rather than deriving it
-from the old bookworm change set.
+Cloud-init is new in this trixie base and is explicitly disabled for Cyclops.
+`build-cyclops` writes `ENABLE_CLOUD_INIT=0`; `stage2/04-cloud-init/00-packages`
+and the example NoCloud seed files were removed; and
+`stage2/04-cloud-init/01-run.sh` is a no-op. As a result, `cloud-init`,
+`rpi-cloud-init-mods`, and the NoCloud seed files under `/boot/firmware` are not
+installed. Cyclops images are appliance images provisioned by the Cyclops
+install flow and updated by full RAUC rootfs replacement, so first-boot
+user-data execution from the boot partition is not part of the product contract.
 
 ## Swap behavior
 
@@ -388,5 +393,4 @@ The actual image build has not been run yet.
 3. Build with `./build-docker.sh`.
 4. Boot the image and verify SSH, timezone, keyboard layout, `rauc`,
    `rauc-service`, `chrony`, Cyclops installer effects, lack of desktop extras,
-   and expected swap/resize behavior.
-5. Decide explicitly whether the trixie cloud-init stage should stay enabled.
+   absence of cloud-init, and expected swap/resize behavior.
