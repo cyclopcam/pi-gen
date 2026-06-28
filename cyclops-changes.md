@@ -156,6 +156,17 @@ stacks do not inflate the lite image.
 The Debian trixie `arm64` package index contains `rauc`, `rauc-service`, and
 `chrony`, so the package names did not need to change.
 
+Added `export-image/05-cyclops-hailo-driver-fix/00-run.sh` and its patch file
+to temporarily replace the apt-installed `hailort-pcie-driver` kernel module.
+The export step runs after the final apt upgrade and immediately before the
+build-only package prune. It downloads the pinned upstream Hailo driver source
+for 4.23.0, applies the upstream 4.24.0 `find_vma()` mmap lock fix, rebuilds
+`hailo_pci.ko` against the image's Raspberry Pi target kernel, removes any
+older `hailo_pci.ko*` copies from that module tree, installs the rebuilt module,
+and runs `depmod`. The apt package remains installed so dpkg still believes the
+driver is present; this override should be removed once the packaged Hailo
+driver has the fix.
+
 Added `export-image/05-cyclops-prune/00-run.sh` to remove Hailo build-only
 packages after all apt-based image setup has completed but before final image
 compression. Cyclops devices are updated by full RAUC rootfs replacement and do
