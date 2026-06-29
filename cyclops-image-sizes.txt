@@ -14,7 +14,8 @@ Addition of export-image/05-cyclops-prune, which removes compilers
 -rw-r--r--  1 ben ben 706M Jun 26 08:34 image_2026-06-26-cyclops-lite.img.gz
 
 The combined result of the above changes (--no-install-recommends and 05-cyclops-prune):
-	raspios.img: 3045064704 (old)
-	raspios.img: 3078619136 (new)
-	That's strange! Why is the extracted image larger, even though the .gz is smaller!
-	Oh, it's because the image file is just raw blocks - so there's no signal there.
+These numbers are from logging into a running machine, and doing "df -h":
+Bookworm /: 1841856 (1.8G)
+Trixie /:   1446160 (1.4G)
+
+Our partitions are 4G large, so we have *plenty* of room to spare.
